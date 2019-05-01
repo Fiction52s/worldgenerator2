@@ -13,9 +13,13 @@ namespace worldgenerator2
 {
     public partial class Form1 : Form
     {
+        Dictionary<string, Image> previews;
+
+
         public Form1()
         {
             InitializeComponent();
+            previews = new Dictionary<string, Image>();
             //treeView1.ContextMenuStrip = contextMenuStrip1;
             //ContextMenu cm = new ContextMenu();
             //cm.MenuItems.Add("Delete");
@@ -249,6 +253,47 @@ namespace worldgenerator2
             
 
             
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TryDisplayPreview();
+        }
+
+
+        private void TryDisplayPreview()
+        {
+            var node = treeView1.SelectedNode;
+            if (node.Parent != null && node.Parent.Parent != null)
+            {
+                string text = node.Text;
+                if (!previews.ContainsKey(text))
+                {
+                    try
+                    {
+                        previews.Add(text, Image.FromFile("C:/Users/ficti/Documents/Programming/BreakneckEmergence/Resources/Maps/Previews/" + text + "_preview_912x492.png"));
+                    }
+                    catch (Exception ex)
+                    {
+                        return;
+                    }
+
+                }
+                pictureBox1.Image = previews[text];
+            }
+        }
+
+        private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            var node = e.Node;
+            if (node.Parent != null && node.Parent.Parent != null)
+            {
+                e.Node.Text = e.Label;
+            }
+            
+            //e.Node.Text = e.Label;
+            //treeView1.SelectedNode = e.Node;
+            TryDisplayPreview();
         }
     }
 }
