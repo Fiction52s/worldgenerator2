@@ -1,0 +1,9 @@
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\bin\Debug\worldgenerator2.exe.config
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\bin\Debug\worldgenerator2.exe
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\bin\Debug\worldgenerator2.pdb
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.Form1.resources
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.Properties.Resources.resources
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.csproj.GenerateResource.Cache
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.exe
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.pdb
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.csprojResolveAssemblyReference.cache
