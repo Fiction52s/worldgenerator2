@@ -14,12 +14,13 @@ namespace worldgenerator2
     public partial class Form1 : Form
     {
         Dictionary<string, Image> previews;
-
+        WorldPreview worldPreview;
 
         public Form1()
         {
             InitializeComponent();
             previews = new Dictionary<string, Image>();
+            worldPreview = new WorldPreview();
             //treeView1.ContextMenuStrip = contextMenuStrip1;
             //ContextMenu cm = new ContextMenu();
             //cm.MenuItems.Add("Delete");
@@ -267,20 +268,25 @@ namespace worldgenerator2
             if (node.Parent != null && node.Parent.Parent != null)
             {
                 string text = node.Text;
-                if (!previews.ContainsKey(text))
-                {
-                    try
-                    {
-                        previews.Add(text, Image.FromFile("C:/Users/ficti/Documents/Programming/BreakneckEmergence/Resources/Maps/Previews/" + text + "_preview_912x492.png"));
-                    }
-                    catch (Exception ex)
-                    {
-                        return;
-                    }
-
-                }
-                pictureBox1.Image = previews[text];
+                pictureBox1.Image = GetPreviewImage(text);
             }
+        }
+
+        public Image GetPreviewImage( string text )
+        {
+            if (!previews.ContainsKey(text))
+            {
+                try
+                {
+                    previews.Add(text, Image.FromFile("C:/Users/ficti/Documents/Programming/BreakneckEmergence/Resources/Maps/Previews/" + text + "_preview_912x492.png"));
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+
+            return previews[text];
         }
 
         private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -294,6 +300,35 @@ namespace worldgenerator2
             //e.Node.Text = e.Label;
             //treeView1.SelectedNode = e.Node;
             TryDisplayPreview();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
+            var node = treeView1.SelectedNode;
+            if( node != null )
+            {
+                while (node.Parent != null)
+                    node = node.Parent;
+            }
+            if( node != null )
+            {
+                worldPreview.SetWorldName(node.Text);
+                worldPreview.ClearPreview();
+                var sectors = node.Nodes;
+                foreach( TreeNode tn in sectors )
+                {
+                    worldPreview.AddSector(tn.Text);
+                    var levels = tn.Nodes;
+                    foreach( TreeNode lev in levels )
+                    {
+                        worldPreview.AddLevel(lev.Text, GetPreviewImage(lev.Text));
+                    }
+                }
+                worldPreview.GeneratePreview();
+                worldPreview.WindowState = FormWindowState.Maximized;
+                worldPreview.ShowDialog();
+            }
         }
     }
 }

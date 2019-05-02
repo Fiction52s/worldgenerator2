@@ -58,6 +58,12 @@
     <Compile Include="SaveFile.cs" />
     <Compile Include="Sector.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="WorldPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldPreview.Designer.cs">
+      <DependentUpon>WorldPreview.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -70,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WorldPreview.resx">
+      <DependentUpon>WorldPreview.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -7,3 +7,4 @@ c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenera
 c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.exe
 c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.pdb
 c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.csprojResolveAssemblyReference.cache
+c:\users\ficti\documents\visual studio 2015\Projects\worldgenerator2\worldgenerator2\obj\Debug\worldgenerator2.WorldPreview.resources
