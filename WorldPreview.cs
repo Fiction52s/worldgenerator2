@@ -24,7 +24,7 @@ namespace worldgenerator2
 
             allPreviews = new List<Tuple<Label, List<Tuple<Label, PictureBox>>>>();
 
-            factor = 4;
+            factor = 1;
             xSize = 912 / factor;
             ySize = 492 / factor;
             xSpacing = 20;

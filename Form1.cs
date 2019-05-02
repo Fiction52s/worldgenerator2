@@ -135,6 +135,66 @@ namespace worldgenerator2
             }
         }
 
+        void MoveNodeUp()
+        {
+            TreeNode node = treeView1.SelectedNode;
+            TreeNode parent = node.Parent;
+            TreeView view = node.TreeView;
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index - 1, node);
+                    treeView1.SelectedNode = node;
+                }
+            }
+            else if (node.TreeView.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index > 0)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index - 1, node);
+                    treeView1.SelectedNode = node;
+                }
+            }
+        }
+
+        void MoveNodeDown()
+        {
+            TreeNode node = treeView1.SelectedNode;
+            TreeNode parent = node.Parent;
+            int maxIndex = parent.Nodes.Count - 1;
+
+
+
+            TreeView view = node.TreeView;
+
+            if (parent != null)
+            {
+                int index = parent.Nodes.IndexOf(node);
+
+                if (index < maxIndex)
+                {
+                    parent.Nodes.RemoveAt(index);
+                    parent.Nodes.Insert(index + 1, node);
+                    treeView1.SelectedNode = node;
+                }
+            }
+            else if (node.TreeView.Nodes.Contains(node)) //root node
+            {
+                int index = view.Nodes.IndexOf(node);
+                if (index < maxIndex)
+                {
+                    view.Nodes.RemoveAt(index);
+                    view.Nodes.Insert(index + 1, node);
+                    treeView1.SelectedNode = node;
+                }
+            }
+        }
+
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             ToolStripItem item = e.ClickedItem;
@@ -145,68 +205,14 @@ namespace worldgenerator2
             if (item.Text == "Delete")
             {
                 treeView1.SelectedNode.Remove();
-                // treeView1.Invalidate();
             }
             else if (item.Text == "Move Up")
             {
-                TreeNode node = treeView1.SelectedNode;
-                TreeNode parent = node.Parent;
-                TreeView view = node.TreeView;
-                if (parent != null)
-                {
-                    int index = parent.Nodes.IndexOf(node);
-                    if (index > 0)
-                    {
-                        parent.Nodes.RemoveAt(index);
-                        parent.Nodes.Insert(index - 1, node);
-                        treeView1.SelectedNode = node;
-                    }
-                }
-                else if (node.TreeView.Nodes.Contains(node)) //root node
-                {
-                    int index = view.Nodes.IndexOf(node);
-                    if (index > 0)
-                    {
-                        view.Nodes.RemoveAt(index);
-                        view.Nodes.Insert(index - 1, node);
-                        treeView1.SelectedNode = node;
-                    }
-                }
+                MoveNodeUp();
             }
             else if (item.Text == "Move Down")
             {
-               
-
-                TreeNode node = treeView1.SelectedNode;
-                TreeNode parent = node.Parent;
-                int maxIndex = parent.Nodes.Count - 1;
-
-
-               
-                TreeView view = node.TreeView;
-                
-                if (parent != null)
-                {
-                    int index = parent.Nodes.IndexOf(node);
-                   
-                    if (index < maxIndex)
-                    {
-                        parent.Nodes.RemoveAt(index);
-                        parent.Nodes.Insert(index + 1, node);
-                        treeView1.SelectedNode = node;
-                    }
-                }
-                else if (node.TreeView.Nodes.Contains(node)) //root node
-                {
-                    int index = view.Nodes.IndexOf(node);
-                    if (index < maxIndex)
-                    {
-                        view.Nodes.RemoveAt(index);
-                        view.Nodes.Insert(index + 1, node);
-                        treeView1.SelectedNode = node;
-                    }
-                }
-
+                MoveNodeDown();
             }
         }
 
@@ -328,6 +334,64 @@ namespace worldgenerator2
                 worldPreview.GeneratePreview();
                 worldPreview.WindowState = FormWindowState.Maximized;
                 worldPreview.ShowDialog();
+            }
+        }
+
+        private void treeView1_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            //if( tn.Parent != null && tn.Parent.Parent != null )
+            {
+                DoDragDrop(e.Item, DragDropEffects.Move);
+            }
+        }
+
+        private void treeView1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void treeView1_DragDrop(object sender, DragEventArgs e)
+        {
+            Point targetPoint = treeView1.PointToClient(new Point(e.X, e.Y));
+
+            // Retrieve the node at the drop location.
+            TreeNode targetNode = treeView1.GetNodeAt(targetPoint);
+
+            if (targetNode.Parent != null && targetNode.Parent.Parent == null) //sector
+            {
+                //it should only work in this case so you can drag levels around but not sectors or worlds
+
+
+                // Retrieve the node that was dragged.
+                TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
+
+                // Confirm that the node at the drop location is not 
+                // the dragged node and that target node isn't null
+                // (for example if you drag outside the control)
+                if (!draggedNode.Equals(targetNode) && targetNode != null)
+                {
+                    // Remove the node from its current 
+                    // location and add it to the node at the drop location.
+                    draggedNode.Remove();
+
+                    targetNode.Nodes.Add(draggedNode);
+
+                    // Expand the node at the location 
+                    // to show the dropped node.
+                    targetNode.Expand();
+                }
+            }
+        }
+
+        private void treeView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if( e.Control && e.KeyCode == Keys.Up )
+            {
+                MoveNodeUp();
+            }
+            else if( e.Control && e.KeyCode == Keys.Down )
+            {
+                MoveNodeDown();
             }
         }
     }
