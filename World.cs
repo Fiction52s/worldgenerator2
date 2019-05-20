@@ -32,7 +32,7 @@ namespace worldgenerator2
         {
             writer.WriteLine(name);
             writer.WriteLine(sectors.Count);
-            foreach( Sector s in sectors )
+            foreach ( Sector s in sectors )
             {
                 s.Save(writer);
             }

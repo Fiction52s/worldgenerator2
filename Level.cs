@@ -15,15 +15,19 @@ namespace worldgenerator2
             ++currIndex;
             bitFieldTest = Convert.ToInt32(lines[currIndex]);
             ++currIndex;
+            int throwawayTime = Convert.ToInt32(lines[currIndex]);
+            ++currIndex;
         }
 
         public void Save(StreamWriter writer)
         {
             writer.WriteLine(name);
             writer.WriteLine(bitFieldTest);
+            writer.WriteLine("-1");
         }
         public string name;
         public int bitFieldTest;
+
         //ignore bitfield for now
     }
 }
