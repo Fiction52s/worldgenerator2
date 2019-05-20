@@ -43,10 +43,21 @@ namespace worldgenerator2
                 w.Save(writer);
             }
 
-            for( int i = 0; i < 5; ++i )
+            //powerField
+            writer.WriteLine("0");
+
+            //momentaField
+            for (int i = 0; i < 2; ++i)
                 writer.WriteLine("0");
+
+            //shards
+            for ( int i = 0; i < 5; ++i )
+                writer.WriteLine("0");
+            //just unlocked shards/unviewed shards
             for (int i = 0; i < 5; ++i)
                 writer.WriteLine("0");
+
+            
 
             writer.Dispose();
 
